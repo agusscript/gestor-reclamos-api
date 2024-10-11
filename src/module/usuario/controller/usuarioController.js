@@ -28,6 +28,13 @@ export default class UsuarioController {
   async getOneById(req, res) {
     try {
       const { id } = req.params;
+
+      if (!id) {
+        res.status(400);
+        res.send({ data: "Debe indicar un id" });
+        return;
+      }
+
       const user = await this.usuarioService.getOneById(id);
 
       if (!user) {
@@ -58,6 +65,13 @@ export default class UsuarioController {
   async update(req, res) {
     try {
       const { id } = req.params;
+
+      if (!id) {
+        res.status(400);
+        res.send({ data: "Debe indicar un id" });
+        return;
+      }
+
       const user = await this.usuarioService.update(id, req.body);
 
       if (!user) {
@@ -77,6 +91,13 @@ export default class UsuarioController {
   async delete(req, res) {
     try {
       const { id } = req.params;
+
+      if (!id) {
+        res.status(400);
+        res.send({ data: "Debe indicar un id" });
+        return;
+      }
+
       const user = await this.usuarioService.delete(id);
 
       if (!user) {
