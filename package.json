@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "Trabájo práctico integrador final - Programación 3",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "start:dev": "node --watch src/index.js"
   },
   "author": "Grupo 19",
   "license": "ISC",
