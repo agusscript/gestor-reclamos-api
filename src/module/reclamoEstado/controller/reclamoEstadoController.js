@@ -21,7 +21,7 @@ export default class ReclamoEstadoController {
       res.send({ data: reclamoEstados });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al obtener los reclamos estados" });
+      res.send({ data: "Error al obtener los estados de reclamo" });
     }
   }
 
@@ -34,31 +34,31 @@ export default class ReclamoEstadoController {
         res.send({ data: "Debe indicar un id" });
         return;
       }
-  
+
       const reclamoEstado = await this.reclamoEstadoService.getOneById(id);
-  
+
       if (!reclamoEstado) {
         res.status(404);
-        res.send({ data: "Reclamo estado no encontrado" });
+        res.send({ data: "Estado de reclamo no encontrado" });
         return;
       }
-  
+
       res.status(200);
       res.send({ data: reclamoEstado });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al obtener el reclamo estado" });
+      res.send({ data: "Error al obtener el estado de reclamo" });
     }
   }
 
-  async create(req, res) {  
+  async create(req, res) {
     try {
       const reclamoEstado = await this.reclamoEstadoService.create(req.body);
       res.status(201);
       res.send({ data: reclamoEstado });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al crear el reclamo estado" });
+      res.send({ data: "Error al crear el estado de reclamo" });
     }
   }
 
@@ -71,20 +71,20 @@ export default class ReclamoEstadoController {
         res.send({ data: "Debe indicar un id" });
         return;
       }
-  
+
       const reclamoEstado = await this.reclamoEstadoService.update(id, req.body);
-  
+
       if (!reclamoEstado) {
         res.status(404);
-        res.send({ data: "Reclamo estado no encontrado" });
+        res.send({ data: "Estado de reclamo no encontrado" });
         return;
       }
-  
+
       res.status(200);
       res.send({ data: reclamoEstado });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al actualizar el reclamo estado" });
+      res.send({ data: "Error al actualizar el estado de reclamo" });
     }
   }
 
@@ -97,20 +97,20 @@ export default class ReclamoEstadoController {
         res.send({ data: "Debe indicar un id" });
         return;
       }
-  
+
       const reclamoEstado = await this.reclamoEstadoService.delete(id);
-  
+
       if (!reclamoEstado) {
         res.status(404);
-        res.send({ data: "Reclamo estado no encontrado" });
+        res.send({ data: "Estado de reclamo no encontrado" });
         return;
       }
-  
+
       res.status(200);
-      res.send({ data: "Reclamo estado eliminado exitosamente" });
+      res.send({ data: "Estado de reclamo eliminado exitosamente" });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al eliminar el reclamo estado" });
+      res.send({ data: "Error al eliminar el estado de reclamo" });
     }
   }
 }

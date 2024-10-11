@@ -9,7 +9,7 @@ export default class ReclamoEstadoRepository {
       const [result] = await this.database.query(sqlQuery);
       return result;
     } catch (error) {
-      console.error("Error en la consulta de reclamos estado: ", error);
+      console.error("Error en la consulta de estados de reclamos: ", error);
       throw error;
     }
   }
@@ -20,7 +20,7 @@ export default class ReclamoEstadoRepository {
       const [rows] = await this.database.query(sqlQuery, [id]);
       return rows[0];
     } catch (error) {
-      console.error("Error en la consulta de reclamo estado: ", error);
+      console.error("Error en la consulta del estado de reclamo: ", error);
       throw error;
     }
   }
@@ -32,7 +32,7 @@ export default class ReclamoEstadoRepository {
       const createdReclamo = this.getOneById(result.insertId);
       return createdReclamo;
     } catch (error) {
-      console.error("Error en la creación de reclamo estado: ", error);
+      console.error("Error en la creación del estado de reclamo: ", error);
       throw error;
     }
   }
@@ -44,7 +44,7 @@ export default class ReclamoEstadoRepository {
       const reclamo = await this.getOneById(id);
       return reclamo;
     } catch (error) {
-      console.error("Error en la actualización de reclamo estado: ", error);
+      console.error("Error en la actualización del estado de reclamo: ", error);
       throw error;
     }
   }
@@ -61,7 +61,7 @@ export default class ReclamoEstadoRepository {
       const [result] = await this.database.query(sqlQuery, [id]);
       return result.affectedRows === 1;
     } catch (error) {
-      console.error("Error en la eliminación lógica de reclamo estado: ", error);
+      console.error("Error en la eliminación lógica del estado de reclamo: ", error);
       throw error;
     }
   }
