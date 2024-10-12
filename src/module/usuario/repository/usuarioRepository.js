@@ -25,12 +25,12 @@ export default class UsuarioRepository {
     }
   }
 
-  async create(user) {
+  async create(usuario) {
     try {
       const sqlQuery = "INSERT INTO usuarios SET ?";
-      const [result] = await this.database.query(sqlQuery, [user]);
-      const createdUser = this.getOneById(result.insertId);
-      return createdUser;
+      const [result] = await this.database.query(sqlQuery, [usuario]);
+      const usuarioCreado = await this.getOneById(result.insertId);
+      return usuarioCreado;
     } catch (error) {
       console.error("Error en la creación de usuario: ", error);
       throw error;
@@ -41,8 +41,8 @@ export default class UsuarioRepository {
     try {
       const sqlQuery = "UPDATE usuarios SET ? WHERE idUsuario = ?";
       await this.database.query(sqlQuery, [changes, id]);
-      const user = await this.getOneById(id);
-      return user;
+      const usuario = await this.getOneById(id);
+      return usuario;
     } catch (error) {
       console.error("Error en la actualización de usuario: ", error);
       throw error;

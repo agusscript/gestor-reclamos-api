@@ -11,8 +11,8 @@ export default class UsuarioService {
     return await this.usuarioRepository.getOneById(id);
   }
 
-  async create(user) {
-    return await this.usuarioRepository.create(user);
+  async create(usuario) {
+    return await this.usuarioRepository.create(usuario);
   }
 
   async update(id, changes) {

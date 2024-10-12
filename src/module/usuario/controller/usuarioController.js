@@ -16,12 +16,12 @@ export default class UsuarioController {
 
   async getAll(req, res) {
     try {
-      const user = await this.usuarioService.getAll();
+      const usuario = await this.usuarioService.getAll();
       res.status(200);
-      res.send({ data: user });
+      res.send({ data: usuario });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al obtener los usuarios" });
+      res.send({ message: "Error al obtener los usuarios" });
     }
   }
 
@@ -31,34 +31,34 @@ export default class UsuarioController {
 
       if (!id) {
         res.status(400);
-        res.send({ data: "Debe indicar un id" });
+        res.send({ message: "Debe indicar un id" });
         return;
       }
 
-      const user = await this.usuarioService.getOneById(id);
+      const usuario = await this.usuarioService.getOneById(id);
 
-      if (!user) {
+      if (!usuario) {
         res.status(404);
-        res.send({ data: "Usuario no encontrado" });
+        res.send({ message: "Usuario no encontrado" });
         return;
       }
 
       res.status(200);
-      res.send({ data: user });
+      res.send({ data: usuario });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al obtener el usuario" });
+      res.send({ message: "Error al obtener el usuario" });
     }
   }
 
   async create(req, res) {
     try {
-      const user = await this.usuarioService.create(req.body);
+      const usuario = await this.usuarioService.create(req.body);
       res.status(201);
-      res.send({ data: user });
+      res.send({ data: usuario });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al crear el usuario" });
+      res.send({ message: "Error al crear el usuario" });
     }
   }
 
@@ -68,23 +68,23 @@ export default class UsuarioController {
 
       if (!id) {
         res.status(400);
-        res.send({ data: "Debe indicar un id" });
+        res.send({ message: "Debe indicar un id" });
         return;
       }
 
-      const user = await this.usuarioService.update(id, req.body);
+      const usuario = await this.usuarioService.update(id, req.body);
 
-      if (!user) {
+      if (!usuario) {
         res.status(404);
-        res.send({ data: "Usuario no encontrado" });
+        res.send({ message: "Usuario no encontrado" });
         return;
       }
 
       res.status(200);
-      res.send({ data: user });
+      res.send({ data: usuario });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al actualizar el usuario" });
+      res.send({ message: "Error al actualizar el usuario" });
     }
   }
 
@@ -94,23 +94,23 @@ export default class UsuarioController {
 
       if (!id) {
         res.status(400);
-        res.send({ data: "Debe indicar un id" });
+        res.send({ message: "Debe indicar un id" });
         return;
       }
 
-      const user = await this.usuarioService.delete(id);
+      const usuario = await this.usuarioService.delete(id);
 
-      if (!user) {
+      if (!usuario) {
         res.status(404);
-        res.send({ data: "Usuario no encontrado" });
+        res.send({ message: "Usuario no encontrado" });
         return;
       }
 
       res.status(200);
-      res.send({ data: "Usuario eliminado exitosamente" });
+      res.send({ message: "Usuario eliminado exitosamente" });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al eliminar el usuario" });
+      res.send({ message: "Error al eliminar el usuario" });
     }
   }
 }
