@@ -16,12 +16,12 @@ export default class ReclamoTipoController {
 
   async getAll(req, res) {
     try {
-      const reclamoEstados = await this.reclamoTipoService.getAll();
+      const reclamoTipos = await this.reclamoTipoService.getAll();
       res.status(200);
-      res.send({ data: reclamoEstados });
+      res.send({ data: reclamoTipos });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al obtener los tipos de reclamo" });
+      res.send({ message: "Error al obtener los tipos de reclamo" });
     }
   }
 
@@ -31,7 +31,7 @@ export default class ReclamoTipoController {
 
       if (!id) {
         res.status(400);
-        res.send({ data: "Debe indicar un id" });
+        res.send({ message: "Debe indicar un id" });
         return;
       }
 
@@ -39,7 +39,7 @@ export default class ReclamoTipoController {
 
       if (!reclamoTipo) {
         res.status(404);
-        res.send({ data: "Tipo de reclamo no encontrado" });
+        res.send({ message: "Tipo de reclamo no encontrado" });
         return;
       }
 
@@ -47,7 +47,7 @@ export default class ReclamoTipoController {
       res.send({ data: reclamoTipo });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al obtener el tipo de reclamo" });
+      res.send({ message: "Error al obtener el tipo de reclamo" });
     }
   }
 
@@ -58,7 +58,7 @@ export default class ReclamoTipoController {
       res.send({ data: reclamoTipo });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al crear el tipo de reclamo" });
+      res.send({ message: "Error al crear el tipo de reclamo" });
     }
   }
 
@@ -68,7 +68,7 @@ export default class ReclamoTipoController {
 
       if (!id) {
         res.status(400);
-        res.send({ data: "Debe indicar un id" });
+        res.send({ message: "Debe indicar un id" });
         return;
       }
 
@@ -76,7 +76,7 @@ export default class ReclamoTipoController {
 
       if (!reclamoTipo) {
         res.status(404);
-        res.send({ data: "Tipo de reclamo no encontrado" });
+        res.send({ message: "Tipo de reclamo no encontrado" });
         return;
       }
 
@@ -84,7 +84,7 @@ export default class ReclamoTipoController {
       res.send({ data: reclamoTipo });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al actualizar el tipo de reclamo" });
+      res.send({ message: "Error al actualizar el tipo de reclamo" });
     }
   }
 
@@ -94,7 +94,7 @@ export default class ReclamoTipoController {
 
       if (!id) {
         res.status(400);
-        res.send({ data: "Debe indicar un id" });
+        res.send({ message: "Debe indicar un id" });
         return;
       }
 
@@ -102,15 +102,15 @@ export default class ReclamoTipoController {
 
       if (!reclamoTipo) {
         res.status(404);
-        res.send({ data: "Tipo de reclamo no encontrado" });
+        res.send({ message: "Tipo de reclamo no encontrado" });
         return;
       }
 
       res.status(200);
-      res.send({ data: "Tipo de reclamo eliminado exitosamente" });
+      res.send({ message: "Tipo de reclamo eliminado exitosamente" });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al eliminar el tipo de reclamo" });
+      res.send({ message: "Error al eliminar el tipo de reclamo" });
     }
   }
 }
