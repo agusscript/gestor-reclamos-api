@@ -29,7 +29,7 @@ export default class ReclamoTipoRepository {
     try {
       const sqlQuery = "INSERT INTO reclamos_tipo SET ?";
       const [result] = await this.database.query(sqlQuery, [reclamoTipo]);
-      const reclamoTipoCreado = this.getOneById(result.insertId);
+      const reclamoTipoCreado = await this.getOneById(result.insertId);
       return reclamoTipoCreado;
     } catch (error) {
       console.error("Error en la creación del tipo de reclamo: ", error);

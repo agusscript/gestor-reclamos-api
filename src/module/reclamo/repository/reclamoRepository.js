@@ -29,7 +29,7 @@ export default class ReclamoRepository {
     try {
       const sqlQuery = "INSERT INTO reclamos SET ?, fechaCreado = NOW()";
       const [result] = await this.database.query(sqlQuery, [reclamo]);
-      const reclamoCreado = this.getOneById(result.insertId);
+      const reclamoCreado = await this.getOneById(result.insertId);
       return reclamoCreado;
     } catch (error) {
       console.error("Error en la creación del reclamo: ", error);

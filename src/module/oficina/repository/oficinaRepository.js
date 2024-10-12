@@ -29,7 +29,7 @@ export default class OficinaRepository {
     try {
       const sqlQuery = "INSERT INTO oficinas SET ?";
       const [result] = await this.database.query(sqlQuery, [oficina]);
-      const oficinaCreada = this.getOneById(result.insertId);
+      const oficinaCreada = await this.getOneById(result.insertId);
       return oficinaCreada;
     } catch (error) {
       console.error("Error en la creación de oficina: ", error);
