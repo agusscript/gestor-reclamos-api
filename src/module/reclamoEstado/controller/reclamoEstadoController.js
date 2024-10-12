@@ -21,7 +21,7 @@ export default class ReclamoEstadoController {
       res.send({ data: reclamoEstados });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al obtener los estados de reclamo" });
+      res.send({ message: "Error al obtener los estados de reclamo" });
     }
   }
 
@@ -31,7 +31,7 @@ export default class ReclamoEstadoController {
 
       if (!id) {
         res.status(400);
-        res.send({ data: "Debe indicar un id" });
+        res.send({ message: "Debe indicar un id" });
         return;
       }
 
@@ -39,7 +39,7 @@ export default class ReclamoEstadoController {
 
       if (!reclamoEstado) {
         res.status(404);
-        res.send({ data: "Estado de reclamo no encontrado" });
+        res.send({ message: "Estado de reclamo no encontrado" });
         return;
       }
 
@@ -47,7 +47,7 @@ export default class ReclamoEstadoController {
       res.send({ data: reclamoEstado });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al obtener el estado de reclamo" });
+      res.send({ message: "Error al obtener el estado de reclamo" });
     }
   }
 
@@ -58,7 +58,7 @@ export default class ReclamoEstadoController {
       res.send({ data: reclamoEstado });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al crear el estado de reclamo" });
+      res.send({ message: "Error al crear el estado de reclamo" });
     }
   }
 
@@ -68,7 +68,7 @@ export default class ReclamoEstadoController {
 
       if (!id) {
         res.status(400);
-        res.send({ data: "Debe indicar un id" });
+        res.send({ message: "Debe indicar un id" });
         return;
       }
 
@@ -76,7 +76,7 @@ export default class ReclamoEstadoController {
 
       if (!reclamoEstado) {
         res.status(404);
-        res.send({ data: "Estado de reclamo no encontrado" });
+        res.send({ message: "Estado de reclamo no encontrado" });
         return;
       }
 
@@ -84,7 +84,7 @@ export default class ReclamoEstadoController {
       res.send({ data: reclamoEstado });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al actualizar el estado de reclamo" });
+      res.send({ message: "Error al actualizar el estado de reclamo" });
     }
   }
 
@@ -94,7 +94,7 @@ export default class ReclamoEstadoController {
 
       if (!id) {
         res.status(400);
-        res.send({ data: "Debe indicar un id" });
+        res.send({ message: "Debe indicar un id" });
         return;
       }
 
@@ -102,15 +102,15 @@ export default class ReclamoEstadoController {
 
       if (!reclamoEstado) {
         res.status(404);
-        res.send({ data: "Estado de reclamo no encontrado" });
+        res.send({ message: "Estado de reclamo no encontrado" });
         return;
       }
 
       res.status(200);
-      res.send({ data: "Estado de reclamo eliminado exitosamente" });
+      res.send({ message: "Estado de reclamo eliminado exitosamente" });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al eliminar el estado de reclamo" });
+      res.send({ message: "Error al eliminar el estado de reclamo" });
     }
   }
 }

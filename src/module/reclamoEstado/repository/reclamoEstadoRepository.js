@@ -29,8 +29,8 @@ export default class ReclamoEstadoRepository {
     try {
       const sqlQuery = "INSERT INTO reclamos_estado SET ?";
       const [result] = await this.database.query(sqlQuery, [reclamoEstado]);
-      const createdReclamo = this.getOneById(result.insertId);
-      return createdReclamo;
+      const reclamoEstadoCreado = this.getOneById(result.insertId);
+      return reclamoEstadoCreado;
     } catch (error) {
       console.error("Error en la creación del estado de reclamo: ", error);
       throw error;
@@ -41,8 +41,8 @@ export default class ReclamoEstadoRepository {
     try {
       const sqlQuery = "UPDATE reclamos_estado SET ? WHERE idReclamoEstado = ?";
       await this.database.query(sqlQuery, [changes, id]);
-      const reclamo = await this.getOneById(id);
-      return reclamo;
+      const reclamoEstado = await this.getOneById(id);
+      return reclamoEstado;
     } catch (error) {
       console.error("Error en la actualización del estado de reclamo: ", error);
       throw error;
@@ -51,9 +51,9 @@ export default class ReclamoEstadoRepository {
 
   async delete(id) {
     try {
-      const reclamo = await this.getOneById(id);
+      const reclamoEstado = await this.getOneById(id);
 
-      if (!reclamo) {
+      if (!reclamoEstado) {
         return false;
       }
 
