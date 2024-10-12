@@ -25,12 +25,12 @@ export default class OficinaRepository {
     }
   }
 
-  async create(office) {
+  async create(oficina) {
     try {
       const sqlQuery = "INSERT INTO oficinas SET ?";
-      const [result] = await this.database.query(sqlQuery, [office]);
-      const createdoffice = this.getOneById(result.insertId);
-      return createdoffice;
+      const [result] = await this.database.query(sqlQuery, [oficina]);
+      const oficinaCreada = this.getOneById(result.insertId);
+      return oficinaCreada;
     } catch (error) {
       console.error("Error en la creación de oficina: ", error);
       throw error;
@@ -41,8 +41,8 @@ export default class OficinaRepository {
     try {
       const sqlQuery = "UPDATE oficinas SET ? WHERE idOficina = ?";
       await this.database.query(sqlQuery, [changes, id]);
-      const office = await this.getOneById(id);
-      return office;
+      const oficina = await this.getOneById(id);
+      return oficina;
     } catch (error) {
       console.error("Error en la actualización de oficina: ", error);
       throw error;
@@ -51,9 +51,9 @@ export default class OficinaRepository {
 
   async delete(id) {
     try {
-      const office = await this.getOneById(id);
+      const oficina = await this.getOneById(id);
 
-      if (!office) {
+      if (!oficina) {
         return false;
       }
 

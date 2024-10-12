@@ -16,12 +16,12 @@ export default class OficinaController {
 
   async getAll(req, res) {
     try {
-      const office = await this.oficinaService.getAll();
+      const oficina = await this.oficinaService.getAll();
       res.status(200);
-      res.send({ data: office });
+      res.send({ data: oficina });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al obtener las oficinas" });
+      res.send({ message: "Error al obtener las oficinas" });
     }
   }
 
@@ -31,34 +31,34 @@ export default class OficinaController {
 
       if (!id) {
         res.status(400);
-        res.send({ data: "Debe indicar un id" });
+        res.send({ message: "Debe indicar un id" });
         return;
       }
 
-      const office = await this.oficinaService.getOneById(id);
+      const oficina = await this.oficinaService.getOneById(id);
 
-      if (!office) {
+      if (!oficina) {
         res.status(404);
-        res.send({ data: "Oficina no encontrada" });
+        res.send({ message: "Oficina no encontrada" });
         return;
       }
 
       res.status(200);
-      res.send({ data: office });
+      res.send({ data: oficina });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al obtener la oficina" });
+      res.send({ message: "Error al obtener la oficina" });
     }
   }
 
   async create(req, res) {
     try {
-      const office = await this.oficinaService.create(req.body);
+      const oficina = await this.oficinaService.create(req.body);
       res.status(201);
-      res.send({ data: office });
+      res.send({ data: oficina });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al crear la oficina" });
+      res.send({ message: "Error al crear la oficina" });
     }
   }
 
@@ -68,23 +68,23 @@ export default class OficinaController {
 
       if (!id) {
         res.status(400);
-        res.send({ data: "Debe indicar un id" });
+        res.send({ message: "Debe indicar un id" });
         return;
       }
 
-      const office = await this.oficinaService.update(id, req.body);
+      const oficina = await this.oficinaService.update(id, req.body);
 
-      if (!office) {
+      if (!oficina) {
         res.status(404);
-        res.send({ data: "Oficina no encontrada" });
+        res.send({ message: "Oficina no encontrada" });
         return;
       }
 
       res.status(200);
-      res.send({ data: office });
+      res.send({ data: oficina });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al actualizar la oficina" });
+      res.send({ message: "Error al actualizar la oficina" });
     }
   }
 
@@ -94,23 +94,23 @@ export default class OficinaController {
 
       if (!id) {
         res.status(400);
-        res.send({ data: "Debe indicar un id" });
+        res.send({ message: "Debe indicar un id" });
         return;
       }
 
-      const office = await this.oficinaService.delete(id);
+      const oficina = await this.oficinaService.delete(id);
 
-      if (!office) {
+      if (!oficina) {
         res.status(404);
-        res.send({ data: "Oficina no encontrada" });
+        res.send({ message: "Oficina no encontrada" });
         return;
       }
 
       res.status(200);
-      res.send({ data: "Oficina eliminada exitosamente" });
+      res.send({ message: "Oficina eliminada exitosamente" });
     } catch (error) {
       res.status(500);
-      res.send({ data: "Error al eliminar la oficina" });
+      res.send({ message: "Error al eliminar la oficina" });
     }
   }
 }
