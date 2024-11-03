@@ -3,6 +3,7 @@ import reclamoModule from "./reclamo/reclamoModule.js";
 import reclamoEstadoModule from "./reclamoEstado/reclamoEstadoModule.js";
 import reclamoTipoModule from "./reclamoTipo/reclamoTipoModule.js";
 import usuarioModule from "./usuario/usuarioModule.js";
+import authModule from "./auth/authModule.js";
 
 export default function initModules(app) {
   usuarioModule(app);
@@ -10,4 +11,5 @@ export default function initModules(app) {
   reclamoModule(app);
   reclamoEstadoModule(app);
   reclamoTipoModule(app);
+  authModule(app);
 }
