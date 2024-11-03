@@ -25,6 +25,17 @@ export default class UsuarioRepository {
     }
   }
 
+  async getOneByEmail(email) {
+    try {
+      const sqlQuery = "SELECT * FROM usuarios WHERE correoElectronico = ? AND activo = 1";
+      const [rows] = await this.database.query(sqlQuery, [email]);
+      return rows[0];
+    } catch (error) {
+      console.error("Error en la consulta de usuario: ", error);
+      throw error;
+    }
+  }
+
   async create(usuario) {
     try {
       const sqlQuery = "INSERT INTO usuarios SET ?";

@@ -11,6 +11,10 @@ export default class UsuarioService {
     return await this.usuarioRepository.getOneById(id);
   }
 
+  async getOneByEmail(email) {
+    return await this.usuarioRepository.getOneByEmail(email);
+  }
+
   async create(usuario) {
     return await this.usuarioRepository.create(usuario);
   }
