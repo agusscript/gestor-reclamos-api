@@ -16,6 +16,10 @@ export default class UsuarioService {
   }
 
   async create(usuario) {
+    if (!usuario.idUsuarioTipo) {
+      usuario.idUsuarioTipo = 3;
+    }
+
     return await this.usuarioRepository.create(usuario);
   }
 
