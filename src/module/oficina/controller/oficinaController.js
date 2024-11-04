@@ -1,17 +1,18 @@
 export default class OficinaController {
-  constructor(oficinaService) {
+  constructor(oficinaService, authRequest) {
     this.oficinaService = oficinaService;
+    this.authRequest = authRequest;
     this.ROUTE_BASE = "/oficina";
   }
 
   configRoutes(app) {
     const ROUTE = this.ROUTE_BASE;
 
-    app.get(this.ROUTE_BASE, this.getAll.bind(this));
-    app.get(`${ROUTE}/:id`, this.getOneById.bind(this));
-    app.post(ROUTE, this.create.bind(this));
-    app.patch(`${ROUTE}/:id`, this.update.bind(this));
-    app.delete(`${ROUTE}/:id`, this.delete.bind(this));
+    app.get(this.ROUTE_BASE, this.authRequest(["Administrador"]), this.getAll.bind(this));
+    app.get(`${ROUTE}/:id`, this.authRequest(["Administrador"]), this.getOneById.bind(this));
+    app.post(ROUTE, this.authRequest(["Administrador"]), this.create.bind(this));
+    app.patch(`${ROUTE}/:id`, this.authRequest(["Administrador"]), this.update.bind(this));
+    app.delete(`${ROUTE}/:id`, this.authRequest(["Administrador"]), this.delete.bind(this));
   }
 
   async getAll(req, res) {
