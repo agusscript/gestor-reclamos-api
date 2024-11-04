@@ -36,10 +36,14 @@ Trabajo Práctico integrador final - Grupo 19
 - Luego de instalar Docker necesitamos agregar en la carpeta raíz de nuestro proyecto un archivo .env con las siguientes variables de entorno
 
 ```
+DB_HOST=localhost
+DB_PORT=3306
 DB_NAME=
 DB_USER=
 DB_PASSWORD=
 DB_ROOT_PASSWORD=
+EMAIL_APP_PASS=njvuvuufkrtnxcvh
+EMAIL_FROM=yorobotikant@gmail.com
 ```
 
 - Ahora podemos levantar nuestro contenedor con la base de datos Mysql con el siguiente comando
