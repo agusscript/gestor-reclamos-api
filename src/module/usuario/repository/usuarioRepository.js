@@ -16,7 +16,12 @@ export default class UsuarioRepository {
 
   async getOneById(id) {
     try {
-      const sqlQuery = "SELECT * FROM usuarios WHERE idUsuario = ? AND activo = 1";
+      const sqlQuery = `
+      SELECT u.*, ut.descripcion as rol
+      FROM usuarios u
+      INNER JOIN usuarios_tipo ut ON u.idUsuarioTipo = ut.idUsuarioTipo
+      WHERE u.idUsuario = ? AND u.activo = 1
+    `;
       const [rows] = await this.database.query(sqlQuery, [id]);
       return rows[0];
     } catch (error) {
@@ -27,7 +32,12 @@ export default class UsuarioRepository {
 
   async getOneByEmail(email) {
     try {
-      const sqlQuery = "SELECT * FROM usuarios WHERE correoElectronico = ? AND activo = 1";
+      const sqlQuery = `
+      SELECT u.*, ut.descripcion as rol
+      FROM usuarios u
+      INNER JOIN usuarios_tipo ut ON u.idUsuarioTipo = ut.idUsuarioTipo
+      WHERE u.correoElectronico = ? AND u.activo = 1
+    `;
       const [rows] = await this.database.query(sqlQuery, [email]);
       return rows[0];
     } catch (error) {
