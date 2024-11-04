@@ -30,8 +30,10 @@ export default class AuthService {
       throw signInError;
     };
 
+    const { idUsuario, rol } = user;
+
     const token = this.jwtService.sign(
-      { userId: user.idUsuario },
+      { idUsuario, usuarioRol:rol },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
