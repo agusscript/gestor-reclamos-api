@@ -10,6 +10,11 @@ export default class UsuarioService {
   async getOneById(id) {
     return await this.usuarioRepository.getOneById(id);
   }
+  
+  async getCorreoByUsuarioID(id) {
+    let usuario = await this.usuarioRepository.getOneById(id);
+    return usuario.correoElectronico; 
+   }
 
   async getOneByEmail(email) {
     return await this.usuarioRepository.getOneByEmail(email);
