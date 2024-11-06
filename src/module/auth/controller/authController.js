@@ -1,3 +1,5 @@
+import { validateSignIn, validateSignUp } from "./validations.js";
+
 export default class AuthController {
   constructor(authService, validationService) {
     this.authService = authService;
@@ -6,41 +8,8 @@ export default class AuthController {
   }
 
   configRoutes(app) {
-    app.post(`${this.ROUTE_BASE}/sign-up`, this.validateSignUp(), this.signUp.bind(this));
-    app.post(`${this.ROUTE_BASE}/sign-in`, this.validateSignIn(), this.signIn.bind(this));
-  }
-
-  validateSignUp() {
-    return [
-      this.validationService.body('nombre').exists().withMessage('El nombre es requerido'),
-      this.validationService.body('apellido').exists().withMessage('El apellido es requerido'),
-      this.validationService
-        .body('correoElectronico')
-        .isEmail()
-        .withMessage('correoElectronico debe ser un email válido'),
-      this.validationService
-        .body('contrasenia')
-        .isLength({ min: 6 })
-        .withMessage('La contrasenia debe tener al menos 6 caracteres'),
-      this.validationService
-        .body('idUsuarioTipo')
-        .optional()
-        .isEmpty()
-        .withMessage('No se puede enviar la propiedad idTipoUsuario')
-    ];
-  }
-
-  validateSignIn() {
-    return [
-      this.validationService
-        .body('correoElectronico')
-        .isEmail()
-        .withMessage('correoElectronico debe ser un email válido'),
-      this.validationService
-        .body('contrasenia')
-        .exists()
-        .withMessage('La contrasenia es requerida'),
-    ];
+    app.post(`${this.ROUTE_BASE}/sign-up`, validateSignUp(this.validationService), this.signUp.bind(this));
+    app.post(`${this.ROUTE_BASE}/sign-in`, validateSignIn(this.validationService), this.signIn.bind(this));
   }
 
   async signUp(req, res) {
