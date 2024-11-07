@@ -155,9 +155,10 @@ export default class ReclamoController {
         return;
       }
       
-      await this.reclamoService.update(id);
+      const updatedReclamo = await this.reclamoService.update(id);
+      
       res.status(200);
-      res.send({ message: "Reclamo cancelado correctamente", data: reclamo });
+      res.send({ message: "Reclamo cancelado correctamente", data: updatedReclamo });
     } catch (error) {
       res.status(500);
       res.send({ message: "Error al cancelar el reclamo" });

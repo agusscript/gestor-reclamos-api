@@ -9,11 +9,13 @@ import UsuarioService from "../../usuario/service/usuarioService.js";
 import ReclamoEstadoRepository from "../../reclamoEstado/repository/reclamoEstadoRepository.js";
 
 export default class ReclamoService {
-  constructor(reclamoRepository) {
+  constructor(reclamoRepository, usuarioService, emailService) {
     this.reclamoRepository = reclamoRepository;
     this.usuarioService = new UsuarioService(new UsuarioRepository(databaseConnection))
     this.reclamoEstadoService = new ReclamoEstadoService(new ReclamoEstadoRepository(databaseConnection))
     this.mailer = sendMail
+    this.usuarioService = usuarioService;
+    this.emailService = emailService;
   }
 
   async getAll() {
@@ -45,6 +47,19 @@ export default class ReclamoService {
   async update(id, changes) {
     if (!changes) {
       changes = { idReclamoEstado: 3 };
+
+      const reclamo = await this.getOneById(id);
+
+      const idUsuarioCreador = reclamo.idUsuarioCreador;
+      const usuarioCreador = await this.usuarioService.getOneById(idUsuarioCreador);
+      const emailTo = usuarioCreador.correoElectronico;
+
+      await this.emailService.send(
+        process.env.EMAIL_FROM,
+        emailTo,
+        "Cambio en el estado de su reclamo",
+        "Su reclamo ha cambiado de estado"
+      );
     }
 
     return await this.reclamoRepository.update(id, changes);
