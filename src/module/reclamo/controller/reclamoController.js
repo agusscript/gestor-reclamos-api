@@ -21,6 +21,7 @@ export default class ReclamoController {
     );
     app.patch(`${ROUTE}/:id`, this.authRequest(["Administrador"]), this.update.bind(this));
     app.patch(`${ROUTE_MAILS}/:id`, this.authRequest(["Administrador"]), this.updateAndSendMail.bind(this));
+    app.patch(`${ROUTE}/:id/cancel`, this.authRequest(["Administrador", "Cliente"]), this.cancel.bind(this));
   }
 
   async getAll(req, res) {
@@ -127,6 +128,39 @@ export default class ReclamoController {
     } catch (error) {
       res.status(500);
       res.send({ message: "Error al actualizar el reclamo" });
+    }
+  }
+  
+  async cancel(req, res) {
+    try {
+      const { id } = req.params;
+
+      if (!id) {
+        res.status(400);
+        res.send({ message: "Debe indicar un id" });
+        return;
+      }
+
+      const reclamo = await this.reclamoService.getOneById(id);
+      
+      if (!reclamo) {
+        res.status(404);
+        res.send({ message: "Reclamo no encontrado" });
+        return;
+      }
+
+      if (reclamo.estado !== "Creado") {
+        res.status(400);
+        res.send({ message: "Solamente se pueden cancelar reclamos con estado Creado" });
+        return;
+      }
+      
+      await this.reclamoService.update(id);
+      res.status(200);
+      res.send({ message: "Reclamo cancelado correctamente", data: reclamo });
+    } catch (error) {
+      res.status(500);
+      res.send({ message: "Error al cancelar el reclamo" });
     }
   }
 }

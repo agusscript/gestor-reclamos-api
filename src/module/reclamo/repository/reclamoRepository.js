@@ -16,7 +16,13 @@ export default class ReclamoRepository {
 
   async getOneById(id) {
     try {
-      const sqlQuery = "SELECT * FROM reclamos WHERE idReclamo = ?";
+      const sqlQuery = `
+      SELECT r.*, e.descripcion as estado, rt.descripcion as reclamoTipo 
+      FROM reclamos r 
+      INNER JOIN reclamos_estado e ON r.idReclamoEstado = e.idReclamoEstado 
+      INNER JOIN reclamos_tipo rt ON r.idReclamoTipo = rt.idReclamoTipo 
+      WHERE r.idReclamo = ?
+    `;
       const [rows] = await this.database.query(sqlQuery, [id]);
       return rows[0];
     } catch (error) {

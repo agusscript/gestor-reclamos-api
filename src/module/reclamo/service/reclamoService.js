@@ -23,11 +23,13 @@ export default class ReclamoService {
   async getOneById(id) {
     return await this.reclamoRepository.getOneById(id);
   }
+
   async getIdReclamoEstadoByReclamoId(id) {
     let reclamoEstado = await this.reclamoRepository.getOneById(id)
     let reclamoEstadoID = reclamoEstado.idReclamoEstado
     return reclamoEstadoID;
   }
+
   async getClienteByReclamoID(id) {
     return await this.reclamoRepository.getClienteByReclamoID(id);
   }
@@ -41,6 +43,10 @@ export default class ReclamoService {
   }
 
   async update(id, changes) {
+    if (!changes) {
+      changes = { idReclamoEstado: 3 };
+    }
+
     return await this.reclamoRepository.update(id, changes);
   }
 
