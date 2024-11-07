@@ -5,7 +5,7 @@ export default class ReclamoRepository {
 
   async getAll() {
     try {
-      const sqlQuery = "SELECT * FROM reclamos WHERE activo = 1";
+      const sqlQuery = "SELECT * FROM reclamos";
       const [result] = await this.database.query(sqlQuery);
       return result;
     } catch (error) {
@@ -16,7 +16,7 @@ export default class ReclamoRepository {
 
   async getOneById(id) {
     try {
-      const sqlQuery = "SELECT * FROM reclamos WHERE idReclamo = ? AND activo = 1";
+      const sqlQuery = "SELECT * FROM reclamos WHERE idReclamo = ?";
       const [rows] = await this.database.query(sqlQuery, [id]);
       return rows[0];
     } catch (error) {
@@ -27,7 +27,7 @@ export default class ReclamoRepository {
 
   async getClienteByReclamoID(id) {
     try {
-      const sqlQuery = "SELECT idUsuarioCreador FROM reclamos WHERE idReclamo = ? AND activo = 1";
+      const sqlQuery = "SELECT idUsuarioCreador FROM reclamos WHERE idReclamo = ?";
       const [rows] = await this.database.query(sqlQuery, [id]);
       return rows[0]?.idUsuarioCreador;
     } catch (error) {
@@ -50,7 +50,7 @@ export default class ReclamoRepository {
 
   async update(id, changes) {
     try {
-      const sqlQuery = "UPDATE reclamos SET ? WHERE idReclamo = ? AND activo = 1";
+      const sqlQuery = "UPDATE reclamos SET ? WHERE idReclamo = ?";
       await this.database.query(sqlQuery, [changes, id]);
       const reclamo = await this.getOneById(id);
       return reclamo;
@@ -63,7 +63,7 @@ export default class ReclamoRepository {
   async updateAndSendMail(id, changes) {
     try {
       console.log(changes)
-      const sqlQuery = "UPDATE reclamos SET idReclamoEstado = ? WHERE idReclamo = ? AND activo = 1";
+      const sqlQuery = "UPDATE reclamos SET idReclamoEstado = ? WHERE idReclamo = ?";
       await this.database.query(sqlQuery, [changes.idReclamoEstado, id]);
       const reclamo = await this.getOneById(id);
       return reclamo;
