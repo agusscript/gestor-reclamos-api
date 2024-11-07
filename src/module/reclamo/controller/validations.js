@@ -8,6 +8,9 @@ function validateCreate(validationService) {
 
     validationService.body('idReclamoTipo').exists()
       .withMessage('La propiedad idReclamoTipo es requerida'),
+
+    validationService.body('idReclamoEstado').isEmpty()
+      .withMessage('No se puede enviar la propiedad idReclamoEstado')
   ];
 }
 
