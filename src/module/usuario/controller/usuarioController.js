@@ -11,7 +11,7 @@ export default class UsuarioController {
     app.get(this.ROUTE_BASE, this.authRequest(["Administrador"]), this.getAll.bind(this));
     app.get(`${ROUTE}/:id`, this.authRequest(["Administrador"]), this.getOneById.bind(this));
     app.post(ROUTE, this.authRequest(["Administrador"]), this.create.bind(this));
-    app.patch(`${ROUTE}/:id`, this.authRequest(["Administrador"]), this.update.bind(this));
+    app.patch(`${ROUTE}/:id`, this.authRequest(["Administrador", "Cliente"]), this.update.bind(this));
     app.delete(`${ROUTE}/:id`, this.authRequest(["Administrador"]), this.delete.bind(this));
   }
 
@@ -70,6 +70,21 @@ export default class UsuarioController {
       if (!id) {
         res.status(400);
         res.send({ message: "Debe indicar un id" });
+        return;
+      }
+
+      const { idUsuario, usuarioRol } = req.user;
+      const { idUsuarioTipo } = req.body;
+
+      if (idUsuarioTipo && usuarioRol !== "Administrador") {
+        res.status(403);
+        res.send({ message: "No tienes permiso para cambiar el rol del usuario" });
+        return;
+      }
+
+      if (Number(idUsuario) !== Number(id) && usuarioRol !== "Administrador") {
+        res.status(403);
+        res.send({ message: "No tienes permiso para actualizar este usuario" });
         return;
       }
 
