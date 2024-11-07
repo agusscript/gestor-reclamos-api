@@ -134,7 +134,6 @@ INSERT INTO `reclamos_tipo` (`idReclamoTipo`, `descripcion`, `activo`) VALUES
 (6, 'Reemplazo de piezas', 1),
 (7, 'Reinstalación correcta', 0),
 (9, 'Reembolso', 1),
-(14, 'tipo reclamos creado en clase', 0);
 
 -- --------------------------------------------------------
 
