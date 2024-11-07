@@ -12,7 +12,7 @@ function validateSignUp(validationService) {
     validationService.body('contrasenia').isLength({ min: 6 })
       .withMessage('La propiedad contrasenia debe tener al menos 6 caracteres'),
 
-    validationService.body('idUsuarioTipo').optional().isEmpty()
+    validationService.body('idUsuarioTipo').isEmpty()
       .withMessage('No se puede enviar la propiedad idUsuarioTipo')
   ];
 }
