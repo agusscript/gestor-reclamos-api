@@ -10,7 +10,6 @@ export default class ReclamoController {
 
   configRoutes(app) {
     const ROUTE = this.ROUTE_BASE;
-    const ROUTE_MAILS = this.ROUTE_BASE + "/notifier"
 
     app.get(this.ROUTE_BASE, this.authRequest(["Administrador"]), this.getAll.bind(this));
     app.get(`${ROUTE}/:id`, this.authRequest(["Administrador"]), this.getOneById.bind(this));
@@ -20,7 +19,6 @@ export default class ReclamoController {
       this.create.bind(this)
     );
     app.patch(`${ROUTE}/:id`, this.authRequest(["Administrador"]), this.update.bind(this));
-    app.patch(`${ROUTE_MAILS}/:id`, this.authRequest(["Administrador"]), this.updateAndSendMail.bind(this));
     app.patch(`${ROUTE}/:id/cancel`, this.authRequest(["Administrador", "Cliente"]), this.cancel.bind(this));
   }
 
@@ -105,32 +103,7 @@ export default class ReclamoController {
       res.send({ message: "Error al actualizar el reclamo" });
     }
   }
-  async updateAndSendMail(req, res) {
-    try {
-      const { id } = req.params;
 
-      if (!id) {
-        res.status(400);
-        res.send({ message: "Debe indicar un id" });
-        return;
-      }
-
-      const reclamo = await this.reclamoService.updateAndSendMail(id, req.body);
-
-      if (!reclamo) {
-        res.status(404);
-        res.send({ message: "Reclamo no encontrado" });
-        return;
-      }
-
-      res.status(200);
-      res.send({ data: reclamo });
-    } catch (error) {
-      res.status(500);
-      res.send({ message: "Error al actualizar el reclamo" });
-    }
-  }
-  
   async cancel(req, res) {
     try {
       const { id } = req.params;
@@ -142,7 +115,7 @@ export default class ReclamoController {
       }
 
       const reclamo = await this.reclamoService.getOneById(id);
-      
+
       if (!reclamo) {
         res.status(404);
         res.send({ message: "Reclamo no encontrado" });
@@ -154,9 +127,9 @@ export default class ReclamoController {
         res.send({ message: "Solamente se pueden cancelar reclamos con estado Creado" });
         return;
       }
-      
+
       const updatedReclamo = await this.reclamoService.update(id);
-      
+
       res.status(200);
       res.send({ message: "Reclamo cancelado correctamente", data: updatedReclamo });
     } catch (error) {

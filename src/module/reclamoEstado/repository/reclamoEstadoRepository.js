@@ -25,19 +25,6 @@ export default class ReclamoEstadoRepository {
     }
   }
 
-
-  async getDescripcionByIdReclamoEstado(id) {
-  try {
-    const sqlQuery = "SELECT descripcion FROM reclamos_estado WHERE idReclamoEstado = ? AND activo = 1";
-    const [rows] = await this.database.query(sqlQuery, [id]);
-    return rows[0]?.descripcion
-  } catch (error) {
-    console.error("Error en la consulta del estado de reclamo: ", error);
-    throw error;
-  }
-  }
-
-
   async create(reclamoEstado) {
     try {
       const sqlQuery = "INSERT INTO reclamos_estado SET ?";

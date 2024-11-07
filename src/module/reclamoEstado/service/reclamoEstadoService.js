@@ -10,10 +10,6 @@ export default class ReclamoEstadoService {
   async getOneById(id) {
     return await this.reclamoEstadoRepository.getOneById(id);
   }
-  
-  async getDescripcionByIdReclamoEstado(id) {
-    return await this.reclamoEstadoRepository.getDescripcionByIdReclamoEstado(id);
-  }
 
   async create(reclamoEstado) {
     return await this.reclamoEstadoRepository.create(reclamoEstado);

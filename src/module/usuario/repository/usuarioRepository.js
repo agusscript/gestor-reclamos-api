@@ -30,18 +30,6 @@ export default class UsuarioRepository {
     }
   }
 
-  async getCorreoByUsuarioID(id) {
-    try {
-      console.log("Test3")
-      const sqlQuery = "SELECT * FROM usuarios WHERE idUsuario = ? AND activo = 1";
-      const [rows] = await this.database.query(sqlQuery, [id]);
-      return rows[0];
-    } catch (error) {
-      console.error("Error en la consulta de usuario: ", error);
-      throw error;
-    }
-  }
-
   async getOneByEmail(email) {
     try {
       const sqlQuery = `
