@@ -1,18 +1,26 @@
+import { validateCreate } from "./validations.js";
+
 export default class ReclamoController {
-  constructor(reclamoService, authRequest) {
+  constructor(reclamoService, authRequest, validationService) {
     this.reclamoService = reclamoService;
     this.authRequest = authRequest;
+    this.validationService = validationService;
     this.ROUTE_BASE = "/reclamo";
   }
 
   configRoutes(app) {
     const ROUTE = this.ROUTE_BASE;
     const ROUTE_MAILS = this.ROUTE_BASE + "/notifier"
+
     app.get(this.ROUTE_BASE, this.authRequest(["Administrador"]), this.getAll.bind(this));
     app.get(`${ROUTE}/:id`, this.authRequest(["Administrador"]), this.getOneById.bind(this));
-    app.post(ROUTE, this.authRequest(["Administrador"]), this.create.bind(this));
+    app.post(
+      ROUTE, this.authRequest(["Administrador", "Cliente"]),
+      validateCreate(this.validationService),
+      this.create.bind(this)
+    );
     app.patch(`${ROUTE}/:id`, this.authRequest(["Administrador"]), this.update.bind(this));
-    app.patch(`${ROUTE_MAILS}/:id`,this.authRequest(["Administrador"]), this.updateAndSendMail.bind(this));
+    app.patch(`${ROUTE_MAILS}/:id`, this.authRequest(["Administrador"]), this.updateAndSendMail.bind(this));
   }
 
   async getAll(req, res) {
@@ -53,8 +61,16 @@ export default class ReclamoController {
   }
 
   async create(req, res) {
+    const errors = await this.validationService.validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     try {
-      const reclamo = await this.reclamoService.create(req.body);
+      const { idUsuario } = req.user;
+      const userData = { ...req.body, idUsuarioCreador: idUsuario };
+      const reclamo = await this.reclamoService.create(userData);
       res.status(201);
       res.send({ data: reclamo });
     } catch (error) {
