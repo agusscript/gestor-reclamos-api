@@ -85,7 +85,7 @@ INSERT INTO `reclamos` (`idReclamo`, `asunto`, `descripcion`, `fechaCreado`, `fe
 (9, 'cristales rayados', NULL, '2024-08-15 09:30:00', NULL, NULL, 1, 4, 7, NULL),
 (10, 'matafuego vencido', NULL, '2024-08-15 09:00:00', NULL, NULL, 2, 4, 7, NULL),
 (11, 'suspensión lado izq fallada', NULL, '2024-08-15 15:00:00', NULL, NULL, 2, 3, 8, NULL),
-(15, 'falla tren delantero', 'empece a notar ruidos molesto', '2024-08-28 19:26:12', NULL, NULL, 1, 1, 12, NULL);
+(15, 'falla tren delantero', 'empece a notar ruidos molesto', '2024-08-28 19:26:12', NULL, NULL, 1, 1, 9, NULL);
 
 -- --------------------------------------------------------
 
@@ -133,7 +133,7 @@ INSERT INTO `reclamos_tipo` (`idReclamoTipo`, `descripcion`, `activo`) VALUES
 (5, 'Verificación de términos', 1),
 (6, 'Reemplazo de piezas', 1),
 (7, 'Reinstalación correcta', 0),
-(9, 'Reembolso', 1),
+(9, 'Reembolso', 1);
 
 -- --------------------------------------------------------
 
@@ -162,8 +162,10 @@ INSERT INTO `usuarios` (`idUsuario`, `nombre`, `apellido`, `correoElectronico`, 
 (3, 'Lucas', 'Ruiz', 'lucas@gmail.com', '$2b$10$8nFCGXQMjjOoJ2QGXCDpA.MeRWYzHiPQRbDFuoMZtVqY1.D6KR.NG', 2, NULL, 1),
 (4, 'Julian', 'Annoni', 'julian@gmail.com', '$2b$10$Dy04i3WU1T.eg/EHBPfjE./aaaX.xpL5qJYEQq.a.uCUxaXansqNq', 2, NULL, 1),
 (5, 'Giovanni', 'Percara', 'gio@gmail.com', '$2b$10$rQf8ptHHdAxrvdKBfbdLN.K80G6l2tvR6tITEVM/foCfiDOm7TmPm', 3, NULL, 1),
-(6, 'Daniela', 'Sanchez', 'daniela@gmail.com', '$2b$10$ThoYGvlZJI/jGmhocCr3a.zS0nAevlmiKtbTLavz69N5Q/O6fqLX6', 3, NULL, 1);
-(7, 'Pipo', 'Gorosito', 'pipo@gmail.com', '$2b$10$qfCGIE4ClfGj6iuRgo8eFeU8igAOnSeQR09u1aTdF.KiIESkDOT16', 3, NULL, 1);
+(6, 'Daniela', 'Sanchez', 'daniela@gmail.com', '$2b$10$ThoYGvlZJI/jGmhocCr3a.zS0nAevlmiKtbTLavz69N5Q/O6fqLX6', 3, NULL, 1),
+(7, 'Cristian', 'Faure', 'cristian.faure@uner.edu.ar', '$2b$10$ThoYGvlZJI/jGmhocCr3a.zS0nAevlmiKtbTLavz69N5Q/O6fqLX6', 3, NULL, 1),
+(8, 'Ignacio', 'Novello', 'ignacio.novello@uner.edu.ar', '$2b$10$ekbE.gKz9gdercHiRVAN4uv7ZtuY/BDhePBTux3EczyV05iB3RXHy', 3, NULL, 1),
+(9, 'Pipo', 'Gorosito', 'pipo@gmail.com', '$2b$10$qfCGIE4ClfGj6iuRgo8eFeU8igAOnSeQR09u1aTdF.KiIESkDOT16', 3, NULL, 1);
 
 -- --------------------------------------------------------
 
