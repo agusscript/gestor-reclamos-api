@@ -165,7 +165,13 @@ INSERT INTO `usuarios` (`idUsuario`, `nombre`, `apellido`, `correoElectronico`, 
 (6, 'Daniela', 'Sanchez', 'daniela@gmail.com', '$2b$10$ThoYGvlZJI/jGmhocCr3a.zS0nAevlmiKtbTLavz69N5Q/O6fqLX6', 3, NULL, 1),
 (7, 'Cristian', 'Faure', 'cristian.faure@uner.edu.ar', '$2b$10$ThoYGvlZJI/jGmhocCr3a.zS0nAevlmiKtbTLavz69N5Q/O6fqLX6', 3, NULL, 1),
 (8, 'Ignacio', 'Novello', 'ignacio.novello@uner.edu.ar', '$2b$10$ekbE.gKz9gdercHiRVAN4uv7ZtuY/BDhePBTux3EczyV05iB3RXHy', 3, NULL, 1),
-(9, 'Pipo', 'Gorosito', 'pipo@gmail.com', '$2b$10$qfCGIE4ClfGj6iuRgo8eFeU8igAOnSeQR09u1aTdF.KiIESkDOT16', 3, NULL, 1);
+(9, 'Pipo', 'Gorosito', 'pipo@gmail.com', '$2b$10$qfCGIE4ClfGj6iuRgo8eFeU8igAOnSeQR09u1aTdF.KiIESkDOT16', 3, NULL, 1),
+(10, 'Cliente', '1', 'test1@gmail.com', '$2b$10$UNCfoUEg4bbTpkocfd0lo.lviV//wfwYYtwjbAb8puKNxXvFDUQt6', 3, NULL, 1),
+(11, 'Cliente', '2', 'test2@gmail.com', '$2b$10$vLEuzrlyxG6dF9.8vGO.cOmdj31LS4xu1L3oEpY2wMV6BU5B7vpCq', 3, NULL, 1),
+(12, 'Empleado', '1', 'test3@gmail.com', '$2b$10$0b4zj0TeQ3mCe2.y9rE7BOkFiszpT8M4fMQinwq/GKDv6bVawFhqC', 2, NULL, 1),
+(13, 'Empleado', '2', 'test4@gmail.com', '$2b$10$rNrJNlwTX5JDeRH6gATL7edw217ED0IRRo5wzk4mLXoCqcbQONrd.', 2, NULL, 1),
+(14, 'Administrador', '1', 'test5@gmail.com', '$2b$10$8Wz.3RPwVhRRzjXnypvRNud4SObYxlWETDFHpf2z2L0AH7f1s3RNW', 1, NULL, 1),
+(15, 'Administrador', '2', 'test6@gmail.com', '$2b$10$fJo2A74wKWJoP9XWbaE7OO1bMKq4S2moIhrtbnZ0hBA1wg5bV0oPu', 1, NULL, 1);
 
 -- --------------------------------------------------------
 
