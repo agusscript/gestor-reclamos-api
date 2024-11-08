@@ -12,7 +12,7 @@ export default class ReclamoController {
     const ROUTE = this.ROUTE_BASE;
 
     app.get(this.ROUTE_BASE, this.authRequest(["Administrador"]), this.getAll.bind(this));
-    app.get(`${ROUTE}/:id`, this.authRequest(["Administrador"]), this.getOneById.bind(this));
+    app.get(`${ROUTE}/:id`, this.authRequest(["Administrador", "Cliente"]), this.getOneById.bind(this));
     app.post(
       ROUTE, this.authRequest(["Administrador", "Cliente"]),
       validateCreate(this.validationService),

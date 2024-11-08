@@ -31,17 +31,6 @@ export default class ReclamoRepository {
     }
   }
 
-  async getClienteByReclamoID(id) {
-    try {
-      const sqlQuery = "SELECT idUsuarioCreador FROM reclamos WHERE idReclamo = ?";
-      const [rows] = await this.database.query(sqlQuery, [id]);
-      return rows[0]?.idUsuarioCreador;
-    } catch (error) {
-      console.error("Error en la consulta del reclamo: ", error);
-      throw error;
-    }
-  }
-
   async create(reclamo) {
     try {
       const sqlQuery = "INSERT INTO reclamos SET ?, fechaCreado = NOW()";
@@ -58,19 +47,6 @@ export default class ReclamoRepository {
     try {
       const sqlQuery = "UPDATE reclamos SET ? WHERE idReclamo = ?";
       await this.database.query(sqlQuery, [changes, id]);
-      const reclamo = await this.getOneById(id);
-      return reclamo;
-    } catch (error) {
-      console.error("Error en la actualización del reclamo: ", error);
-      throw error;
-    }
-  }
-
-  async updateAndSendMail(id, changes) {
-    try {
-      console.log(changes)
-      const sqlQuery = "UPDATE reclamos SET idReclamoEstado = ? WHERE idReclamo = ?";
-      await this.database.query(sqlQuery, [changes.idReclamoEstado, id]);
       const reclamo = await this.getOneById(id);
       return reclamo;
     } catch (error) {
