@@ -1,9 +1,11 @@
 export default class EmailService {
-  constructor(service) {
+  constructor(service, pathService, templateService) {
     this.service = service;
+    this.pathService = pathService;
+    this.templateService = templateService;
   }
 
-  async send(from, to, subject, text) {
+  async send({ from, to, subject, html, template, context }) {
     const transporter = await this.service.createTransport({
       service: 'Gmail',
       auth: {
@@ -12,19 +14,30 @@ export default class EmailService {
       }
     });
 
+    transporter.use('compile', this.templateService({
+      viewEngine: {
+        extName: '.hbs',
+        partialsDir: this.pathService.resolve('./src/module/email/template/'),
+        defaultLayout: false,
+      },
+      viewPath: this.pathService.resolve('./src/module/email/template/'),
+      extName: '.hbs',
+    }));
+
     const mailOptions = {
       from,
       to,
       subject,
-      text
+      html,
+      template,
+      context
     };
 
-    await transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error('Error al enviar el correo electrónico:', error);
-      } else {
-        console.log('Correo electrónico enviado:', info.response);
-      }
-    });
+    try {
+      const info = await transporter.sendMail(mailOptions);
+      console.log('Correo electrónico enviado:', info.response);
+    } catch (error) {
+      console.error('Error al enviar el correo electrónico:', error);
+    }
   }
 }
