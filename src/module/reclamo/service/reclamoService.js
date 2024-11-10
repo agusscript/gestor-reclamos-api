@@ -31,12 +31,18 @@ export default class ReclamoService {
       const usuarioCreador = await this.usuarioService.getOneById(idUsuarioCreador);
       const emailTo = usuarioCreador.correoElectronico;
 
-      await this.emailService.send(
-        process.env.EMAIL_FROM,
-        emailTo,
-        "Cambio en el estado de su reclamo",
-        "Su reclamo ha cambiado de estado"
-      );
+      await this.emailService.send({
+        from: process.env.EMAIL_FROM,
+        to: emailTo,
+        subject: "Cambio en el estado de su reclamo",
+        template: "reclamoEstado",
+        context: {
+          nombre: usuarioCreador.nombre,
+          apellido: usuarioCreador.apellido,
+          idReclamo: id,
+          estado: "Cancelado",
+        }
+      });
     }
 
     return await this.reclamoRepository.update(id, changes);

@@ -8,14 +8,18 @@ import ReclamoRepository from "./repository/reclamoRepository.js";
 import ReclamoService from "./service/reclamoService.js";
 import expressValidator from "express-validator"
 import nodeMailer from 'nodemailer';
+import hbs from 'nodemailer-express-handlebars';
+import path from 'path';
 
 export default function reclamoModule(app) {
   const authRequest = authMiddleware;
   const validationService = expressValidator;
+  const pathService = path;
+  const templateService = hbs;
 
   const usuarioRepository = new UsuarioRepository(databaseConnection);
   const usuarioService = new UsuarioService(usuarioRepository);
-  const emailService = new EmailService(nodeMailer);
+  const emailService = new EmailService(nodeMailer, pathService, templateService);
 
   const reclamoRepository = new ReclamoRepository(databaseConnection);
   const reclamoService = new ReclamoService(reclamoRepository, usuarioService, emailService);
