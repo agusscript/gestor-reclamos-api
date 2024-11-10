@@ -31,6 +31,17 @@ export default class ReclamoRepository {
     }
   }
 
+  async getReportData() {
+    try {
+      const sqlQuery = "CALL datosPDF()";
+      const [result] = await this.database.query(sqlQuery);
+      return result[0][0];
+    } catch (error) {
+      console.error("Error en la consulta de los reclamos: ", error);
+      throw error;
+    }
+  }
+
   async create(reclamo) {
     try {
       const sqlQuery = "INSERT INTO reclamos SET ?, fechaCreado = NOW()";

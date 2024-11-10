@@ -13,6 +13,10 @@ export default class ReclamoService {
     return await this.reclamoRepository.getOneById(id);
   }
 
+  async getReportData() {
+    return await this.reclamoRepository.getReportData();
+  }
+
   async create(reclamo) {
     if (!reclamo.idReclamoEstado) {
       reclamo.idReclamoEstado = 1;
