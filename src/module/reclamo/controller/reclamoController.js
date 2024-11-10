@@ -1,10 +1,11 @@
 import { validateCreate } from "./validations.js";
 
 export default class ReclamoController {
-  constructor(reclamoService, authRequest, validationService) {
+  constructor(reclamoService, authRequest, validationService, informeService) {
     this.reclamoService = reclamoService;
     this.authRequest = authRequest;
     this.validationService = validationService;
+    this.informeService = informeService;
     this.ROUTE_BASE = "/reclamo";
   }
 
@@ -13,6 +14,7 @@ export default class ReclamoController {
 
     app.get(this.ROUTE_BASE, this.authRequest(["Administrador"]), this.getAll.bind(this));
     app.get(`${ROUTE}/:id`, this.authRequest(["Administrador", "Cliente"]), this.getOneById.bind(this));
+    app.get(`${ROUTE}/report/:format`, this.authRequest(["Administrador"]), this.generateReport.bind(this));
     app.post(
       ROUTE, this.authRequest(["Administrador", "Cliente"]),
       validateCreate(this.validationService),
@@ -56,6 +58,30 @@ export default class ReclamoController {
     } catch (error) {
       res.status(500);
       res.send({ message: "Error al obtener el reclamo" });
+    }
+  }
+
+  async generateReport(req, res) {
+    try {
+      const { format } = req.params;
+
+      if (format !== 'pdf') {
+        res.status(400)
+        res.send({ message: "Formato no soportado. Solo se permite pdf" });
+        return;
+      }
+
+      const reportData = await this.reclamoService.getReportData();
+      const pdfBuffer = await this.informeService.generatePDF(reportData);
+
+      res.set({
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': 'attachment; filename="informe.pdf"',
+      });
+      res.end(pdfBuffer);
+    } catch (error) {
+      res.status(500)
+      res.send({ message: "Error al generar el informe" });
     }
   }
 
