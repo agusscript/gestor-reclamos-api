@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 29-08-2024 a las 03:43:20
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Server: 127.0.0.1
+-- Generation Time: 2024-08-29 at 03:43:20
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -17,14 +17,14 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `reclamos`
+-- Database: `complaint`
 --
 
 --
--- Volcado de datos para la tabla `oficinas`
+-- Dumping data for table `office`
 --
 
-INSERT INTO `oficinas` (`idOficina`, `nombre`, `idReclamoTipo`, `activo`) VALUES
+INSERT INTO `office` (`id`, `name`, `idComplaintType`, `active`) VALUES
 (1, 'Dpto. de Taller y Servicio Técnico', 1, 1),
 (2, 'Dpto. de Garantías', 4, 1),
 (3, 'Dpto. de Repuestos y Partes', 6, 1),
@@ -33,26 +33,26 @@ INSERT INTO `oficinas` (`idOficina`, `nombre`, `idReclamoTipo`, `activo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `reclamos`
+-- Dumping data for table `complaint`
 --
 
-INSERT INTO `reclamos` (`idReclamo`, `asunto`, `descripcion`, `fechaCreado`, `fechaFinalizado`, `fechaCancelado`, `idReclamoEstado`, `idReclamoTipo`, `idUsuarioCreador`, `idUsuarioFinalizador`) VALUES
+INSERT INTO `complaint` (`id`, `subject`, `description`, `createdDate`, `finishedDate`, `canceledDate`, `idComplaintStatus`, `idComplaintType`, `idCreatorUser`, `idFinisherUser`) VALUES
 (5, 'ruido en motor', NULL, '2024-08-19 06:00:00', NULL, NULL, 1, 1, 9, NULL),
-(6, 'rotura de  motor ', NULL, '2024-08-19 07:00:00', NULL, NULL, 4, 1, 8, NULL),
+(6, 'rotura de motor', NULL, '2024-08-19 07:00:00', NULL, NULL, 4, 1, 8, NULL),
 (7, 'no frena', NULL, '2024-08-15 07:15:00', NULL, NULL, 1, 2, 8, NULL),
 (8, 'ruidos extraños', NULL, '2024-08-15 08:00:00', NULL, NULL, 1, 3, 7, NULL),
 (9, 'cristales rayados', NULL, '2024-08-15 09:30:00', NULL, NULL, 1, 4, 7, NULL),
 (10, 'matafuego vencido', NULL, '2024-08-15 09:00:00', NULL, NULL, 2, 4, 7, NULL),
 (11, 'suspensión lado izq fallada', NULL, '2024-08-15 15:00:00', NULL, NULL, 2, 3, 8, NULL),
-(15, 'falla tren delantero', 'empece a notar ruidos molesto', '2024-08-28 19:26:12', NULL, NULL, 1, 1, 9, NULL);
+(15, 'falla tren delantero', 'empece a notar ruidos molestos', '2024-08-28 19:26:12', NULL, NULL, 1, 1, 9, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `reclamos_estado`
+-- Dumping data for table `complaint_status`
 --
 
-INSERT INTO `reclamos_estado` (`idReclamoEstado`, `descripcion`, `activo`) VALUES
+INSERT INTO `complaint_status` (`id`, `description`, `active`) VALUES
 (1, 'Creado', 1),
 (2, 'En Proceso', 1),
 (3, 'Cancelado', 1),
@@ -61,10 +61,10 @@ INSERT INTO `reclamos_estado` (`idReclamoEstado`, `descripcion`, `activo`) VALUE
 -- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `reclamos_tipo`
+-- Dumping data for table `complaint_type`
 --
 
-INSERT INTO `reclamos_tipo` (`idReclamoTipo`, `descripcion`, `activo`) VALUES
+INSERT INTO `complaint_type` (`id`, `description`, `active`) VALUES
 (1, 'Falla de motor', 1),
 (2, 'Falla de frenos', 1),
 (3, 'Falla de suspensión', 1),
@@ -77,10 +77,10 @@ INSERT INTO `reclamos_tipo` (`idReclamoTipo`, `descripcion`, `activo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `usuarios`
+-- Dumping data for table `user`
 --
 
-INSERT INTO `usuarios` (`idUsuario`, `nombre`, `apellido`, `correoElectronico`, `contrasenia`, `idUsuarioTipo`, `imagen`, `activo`) VALUES
+INSERT INTO `user` (`id`, `name`, `lastname`, `email`, `password`, `idUserType`, `image`, `active`) VALUES
 (1, 'Agustin', 'Sanchez', 'agus@gmail.com', '$2b$10$7HtSXlZz6PA3Ls.prypvu.XxHze2K4wkyVEBGio2zOA7WC4HHtDDa', 1, NULL, 1),
 (2, 'Lara', 'Alegre', 'lara@gmail.com', '$2b$10$rZeI4w236ysneDwwhEFL8uRRQ2fGpOFTR3Ah0U3u2bNuxpEar7vp6', 1, NULL, 1),
 (3, 'Lucas', 'Ruiz', 'lucas@gmail.com', '$2b$10$8nFCGXQMjjOoJ2QGXCDpA.MeRWYzHiPQRbDFuoMZtVqY1.D6KR.NG', 2, NULL, 1),
@@ -100,10 +100,10 @@ INSERT INTO `usuarios` (`idUsuario`, `nombre`, `apellido`, `correoElectronico`, 
 -- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `usuarios_oficinas`
+-- Dumping data for table `user_office`
 --
 
-INSERT INTO `usuarios_oficinas` (`idUsuarioOficina`, `idUsuario`, `idOficina`, `activo`) VALUES
+INSERT INTO `user_office` (`id`, `idUser`, `idOffice`, `active`) VALUES
 (1, 3, 1, 1),
 (2, 4, 2, 1),
 (3, 8, 3, 1),
@@ -112,10 +112,10 @@ INSERT INTO `usuarios_oficinas` (`idUsuarioOficina`, `idUsuario`, `idOficina`, `
 -- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `usuarios_tipo`
+-- Dumping data for table `user_type`
 --
 
-INSERT INTO `usuarios_tipo` (`idUsuarioTipo`, `descripcion`, `activo`) VALUES
+INSERT INTO `user_type` (`id`, `description`, `active`) VALUES
 (1, 'Administrador', 1),
 (2, 'Empleado', 1),
 (3, 'Cliente', 1);

@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 29-08-2024 a las 03:43:20
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Server: 127.0.0.1
+-- Generation Time: 2024-08-29 at 03:43:20
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -17,258 +17,254 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `reclamos`
+-- Database: `complaint`
 --
 
 DELIMITER $$
 --
--- Procedimientos
+-- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `totales_reclamos_estados` (OUT `descripcion` CHAR, OUT `cantidad` INT)
-SELECT re.descripcion, count(r.idReclamo) as cantidad
-FROM `reclamos` as r
-INNER JOIN `reclamos_estado` AS re ON re.idReclamoEstado = r.idReclamoEstado
-GROUP by re.descripcion$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `total_complaint_status` (OUT `description` CHAR, OUT `quantity` INT)
+SELECT cs.description, count(c.id) as quantity
+FROM `complaint` as c
+INNER JOIN `complaint_status` AS cs ON cs.id = c.idComplaintStatus
+GROUP by cs.description$$
 
 DELIMITER ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `oficinas`
+-- Table structure for table `office`
 --
 
-CREATE TABLE `oficinas` (
-  `idOficina` int(11) NOT NULL,
-  `nombre` varchar(256) NOT NULL,
-  `idReclamoTipo` int(11) NOT NULL,
-  `activo` tinyint(1) NOT NULL DEFAULT 1
+CREATE TABLE `office` (
+  `id` int(11) NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `idComplaintType` int(11) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `reclamos`
+-- Table structure for table `complaint`
 --
 
-CREATE TABLE `reclamos` (
-  `idReclamo` int(11) NOT NULL,
-  `asunto` varchar(256) NOT NULL,
-  `descripcion` varchar(256) DEFAULT NULL,
-  `fechaCreado` datetime NOT NULL,
-  `fechaFinalizado` datetime DEFAULT NULL,
-  `fechaCancelado` datetime DEFAULT NULL,
-  `idReclamoEstado` int(11) NOT NULL,
-  `idReclamoTipo` int(11) NOT NULL,
-  `idUsuarioCreador` int(11) NOT NULL,
-  `idUsuarioFinalizador` int(11) DEFAULT NULL
+CREATE TABLE `complaint` (
+  `id` int(11) NOT NULL,
+  `subject` varchar(256) NOT NULL,
+  `description` varchar(256) DEFAULT NULL,
+  `createdDate` datetime NOT NULL,
+  `finishedDate` datetime DEFAULT NULL,
+  `canceledDate` datetime DEFAULT NULL,
+  `idComplaintStatus` int(11) NOT NULL,
+  `idComplaintType` int(11) NOT NULL,
+  `idCreatorUser` int(11) NOT NULL,
+  `idFinisherUser` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `reclamos_estado`
+-- Table structure for table `complaint_status`
 --
 
-CREATE TABLE `reclamos_estado` (
-  `idReclamoEstado` int(11) NOT NULL,
-  `descripcion` varchar(256) NOT NULL,
-  `activo` tinyint(1) NOT NULL DEFAULT 1
+CREATE TABLE `complaint_status` (
+  `id` int(11) NOT NULL,
+  `description` varchar(256) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `reclamos_tipo`
+-- Table structure for table `complaint_type`
 --
 
-CREATE TABLE `reclamos_tipo` (
-  `idReclamoTipo` int(11) NOT NULL,
-  `descripcion` varchar(256) NOT NULL,
-  `activo` tinyint(4) NOT NULL DEFAULT 1
+CREATE TABLE `complaint_type` (
+  `id` int(11) NOT NULL,
+  `description` varchar(256) NOT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios`
+-- Table structure for table `user`
 --
 
-CREATE TABLE `usuarios` (
-  `idUsuario` int(11) NOT NULL,
-  `nombre` varchar(256) NOT NULL,
-  `apellido` varchar(256) NOT NULL,
-  `correoElectronico` varchar(256) NOT NULL,
-  `contrasenia` varchar(256) NOT NULL,
-  `idUsuarioTipo` int(11) NOT NULL,
-  `imagen` varchar(256) DEFAULT NULL,
-  `activo` tinyint(4) NOT NULL DEFAULT 1
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `lastname` varchar(256) NOT NULL,
+  `email` varchar(256) NOT NULL,
+  `password` varchar(256) NOT NULL,
+  `idUserType` int(11) NOT NULL,
+  `image` varchar(256) DEFAULT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios_oficinas`
+-- Table structure for table `user_office`
 --
 
-CREATE TABLE `usuarios_oficinas` (
-  `idUsuarioOficina` int(11) NOT NULL,
-  `idUsuario` int(11) NOT NULL,
-  `idOficina` int(11) NOT NULL,
-  `activo` tinyint(4) NOT NULL DEFAULT 1
+CREATE TABLE `user_office` (
+  `id` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
+  `idOffice` int(11) NOT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios_tipo`
+-- Table structure for table `user_type`
 --
 
-CREATE TABLE `usuarios_tipo` (
-  `idUsuarioTipo` int(11) NOT NULL,
-  `descripcion` varchar(256) NOT NULL,
-  `activo` tinyint(1) NOT NULL DEFAULT 1
+CREATE TABLE `user_type` (
+  `id` int(11) NOT NULL,
+  `description` varchar(256) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Índices para tablas volcadas
+-- Indexes for table `office`
+--
+ALTER TABLE `office`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `office_fk2` (`idComplaintType`);
+
+--
+-- Indexes for table `complaint`
+--
+ALTER TABLE `complaint`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `complaint_fk6` (`idComplaintStatus`),
+  ADD KEY `complaint_fk7` (`idComplaintType`),
+  ADD KEY `complaint_fk8` (`idCreatorUser`),
+  ADD KEY `complaint_fk9` (`idFinisherUser`);
+
+--
+-- Indexes for table `complaint_status`
+--
+ALTER TABLE `complaint_status`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `complaint_type`
+--
+ALTER TABLE `complaint_type`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `user_fk5` (`idUserType`);
+
+--
+-- Indexes for table `user_office`
+--
+ALTER TABLE `user_office`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `userOffice_fk1` (`idUser`),
+  ADD KEY `userOffice_fk2` (`idOffice`);
+
+--
+-- Indexes for table `user_type`
+--
+ALTER TABLE `user_type`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- Indices de la tabla `oficinas`
+-- AUTO_INCREMENT for table `office`
 --
-ALTER TABLE `oficinas`
-  ADD PRIMARY KEY (`idOficina`),
-  ADD UNIQUE KEY `idOficina` (`idOficina`),
-  ADD KEY `oficinas_fk2` (`idReclamoTipo`);
+ALTER TABLE `office`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Indices de la tabla `reclamos`
+-- AUTO_INCREMENT for table `complaint`
 --
-ALTER TABLE `reclamos`
-  ADD PRIMARY KEY (`idReclamo`),
-  ADD UNIQUE KEY `idReclamo` (`idReclamo`),
-  ADD KEY `reclamos_fk6` (`idReclamoEstado`),
-  ADD KEY `reclamos_fk7` (`idReclamoTipo`),
-  ADD KEY `reclamos_fk8` (`idUsuarioCreador`),
-  ADD KEY `reclamos_fk9` (`idUsuarioFinalizador`);
+ALTER TABLE `complaint`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- Indices de la tabla `reclamos_estado`
+-- AUTO_INCREMENT for table `complaint_status`
 --
-ALTER TABLE `reclamos_estado`
-  ADD PRIMARY KEY (`idReclamoEstado`),
-  ADD UNIQUE KEY `idReclamoEstado` (`idReclamoEstado`);
+ALTER TABLE `complaint_status`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- Indices de la tabla `reclamos_tipo`
+-- AUTO_INCREMENT for table `complaint_type`
 --
-ALTER TABLE `reclamos_tipo`
-  ADD PRIMARY KEY (`idReclamoTipo`),
-  ADD UNIQUE KEY `idReclamoTipo` (`idReclamoTipo`);
+ALTER TABLE `complaint_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- Indices de la tabla `usuarios`
+-- AUTO_INCREMENT for table `user`
 --
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`idUsuario`),
-  ADD UNIQUE KEY `idUsuario` (`idUsuario`),
-  ADD UNIQUE KEY `correoElectronico` (`correoElectronico`),
-  ADD KEY `usuarios_fk5` (`idUsuarioTipo`);
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- Indices de la tabla `usuarios_oficinas`
+-- AUTO_INCREMENT for table `user_office`
 --
-ALTER TABLE `usuarios_oficinas`
-  ADD PRIMARY KEY (`idUsuarioOficina`),
-  ADD UNIQUE KEY `idUsuarioOficina` (`idUsuarioOficina`),
-  ADD KEY `usuariosOficinas_fk1` (`idUsuario`),
-  ADD KEY `usuariosOficinas_fk2` (`idOficina`);
+ALTER TABLE `user_office`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Indices de la tabla `usuarios_tipo`
+-- AUTO_INCREMENT for table `user_type`
 --
-ALTER TABLE `usuarios_tipo`
-  ADD PRIMARY KEY (`idUsuarioTipo`),
-  ADD UNIQUE KEY `idUsuarioTipo` (`idUsuarioTipo`);
+ALTER TABLE `user_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `oficinas`
+-- Constraints for table `office`
 --
-ALTER TABLE `oficinas`
-  MODIFY `idOficina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `office`
+  ADD CONSTRAINT `office_fk2` FOREIGN KEY (`idComplaintType`) REFERENCES `complaint_type` (`id`);
 
 --
--- AUTO_INCREMENT de la tabla `reclamos`
+-- Constraints for table `complaint`
 --
-ALTER TABLE `reclamos`
-  MODIFY `idReclamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+ALTER TABLE `complaint`
+  ADD CONSTRAINT `complaint_fk6` FOREIGN KEY (`idComplaintStatus`) REFERENCES `complaint_status` (`id`),
+  ADD CONSTRAINT `complaint_fk7` FOREIGN KEY (`idComplaintType`) REFERENCES `complaint_type` (`id`),
+  ADD CONSTRAINT `complaint_fk8` FOREIGN KEY (`idCreatorUser`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `complaint_fk9` FOREIGN KEY (`idFinisherUser`) REFERENCES `user` (`id`);
 
 --
--- AUTO_INCREMENT de la tabla `reclamos_estado`
+-- Constraints for table `user`
 --
-ALTER TABLE `reclamos_estado`
-  MODIFY `idReclamoEstado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_fk5` FOREIGN KEY (`idUserType`) REFERENCES `user_type` (`id`);
 
 --
--- AUTO_INCREMENT de la tabla `reclamos_tipo`
+-- Constraints for table `user_office`
 --
-ALTER TABLE `reclamos_tipo`
-  MODIFY `idReclamoTipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT de la tabla `usuarios_oficinas`
---
-ALTER TABLE `usuarios_oficinas`
-  MODIFY `idUsuarioOficina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de la tabla `usuarios_tipo`
---
-ALTER TABLE `usuarios_tipo`
-  MODIFY `idUsuarioTipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `oficinas`
---
-ALTER TABLE `oficinas`
-  ADD CONSTRAINT `oficinas_fk2` FOREIGN KEY (`idReclamoTipo`) REFERENCES `reclamos_tipo` (`idReclamoTipo`);
-
---
--- Filtros para la tabla `reclamos`
---
-ALTER TABLE `reclamos`
-  ADD CONSTRAINT `reclamos_fk6` FOREIGN KEY (`idReclamoEstado`) REFERENCES `reclamos_estado` (`idReclamoEstado`),
-  ADD CONSTRAINT `reclamos_fk7` FOREIGN KEY (`idReclamoTipo`) REFERENCES `reclamos_tipo` (`idReclamoTipo`),
-  ADD CONSTRAINT `reclamos_fk8` FOREIGN KEY (`idUsuarioCreador`) REFERENCES `usuarios` (`idUsuario`),
-  ADD CONSTRAINT `reclamos_fk9` FOREIGN KEY (`idUsuarioFinalizador`) REFERENCES `usuarios` (`idUsuario`);
-
---
--- Filtros para la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD CONSTRAINT `usuarios_fk5` FOREIGN KEY (`idUsuarioTipo`) REFERENCES `usuarios_tipo` (`idUsuarioTipo`);
-
---
--- Filtros para la tabla `usuarios_oficinas`
---
-ALTER TABLE `usuarios_oficinas`
-  ADD CONSTRAINT `usuariosOficinas_fk1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`),
-  ADD CONSTRAINT `usuariosOficinas_fk2` FOREIGN KEY (`idOficina`) REFERENCES `oficinas` (`idOficina`);
+ALTER TABLE `user_office`
+  ADD CONSTRAINT `userOffice_fk1` FOREIGN KEY (`idUser`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `userOffice_fk2` FOREIGN KEY (`idOffice`) REFERENCES `office` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
