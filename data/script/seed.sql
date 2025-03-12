@@ -116,9 +116,9 @@ INSERT INTO `user_office` (`id`, `idUser`, `idOffice`, `active`) VALUES
 --
 
 INSERT INTO `user_type` (`id`, `description`, `active`) VALUES
-(1, 'Administrador', 1),
-(2, 'Empleado', 1),
-(3, 'Cliente', 1);
+(1, 'Admin', 1),
+(2, 'Employee', 1),
+(3, 'Client', 1);
 
 COMMIT;
 
