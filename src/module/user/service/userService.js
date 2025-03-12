@@ -16,8 +16,8 @@ export default class UserService {
   }
 
   async create(user) {
-    if (!user.idType) {
-      user.idType = 3;
+    if (!user.idUserType) {
+      user.idUserType = 3;
     }
 
     return await this.userRepository.create(user);
