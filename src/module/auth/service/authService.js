@@ -9,31 +9,31 @@ export default class AuthService {
     const existingUser = await this.userService.getOneByEmail(userData.email);
 
     if (existingUser) {
-      throw new Error("El correo ya ha sido registrado")
+      throw new Error("The email has already been registered")
     };
 
-    userData.contrasenia = await this.hashService.hash(userData.contrasenia, 10);
+    userData.password = await this.hashService.hash(userData.password, 10);
     return await this.userService.create(userData);
   };
 
   async signIn(email, password) {
     const user = await this.userService.getOneByEmail(email);
-    const signInError = new Error("El usuario o la contraseña es incorrecta");
+    const signInError = new Error("The username or password is incorrect");
 
     if (!user) {
       throw signInError;
     };
 
-    const isPasswordValid = await this.hashService.compare(password, user.contrasenia);
+    const isPasswordValid = await this.hashService.compare(password, user.password);
 
     if (!isPasswordValid) {
       throw signInError;
     };
 
-    const { idUsuario, rol } = user;
+    const { id, role } = user;
 
     const token = this.jwtService.sign(
-      { idUsuario, usuarioRol:rol },
+      { id, role },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
