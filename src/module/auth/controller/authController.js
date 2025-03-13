@@ -22,11 +22,11 @@ export default class AuthController {
     try {
       const user = await this.authService.signUp(req.body);
       res.status(201);
-      res.send({ message: "Usuario registrado correctamente!", data: user });
+      res.send({ message: "User successfully registered!", data: user });
     } catch (error) {
       console.error(error);
       res.status(400);
-      res.send({ message: "Error al registrar el usuario" });
+      res.send({ message: "Error registering user" });
     }
   };
 
@@ -38,14 +38,14 @@ export default class AuthController {
     }
 
     try {
-      const { correoElectronico, contrasenia } = req.body;
-      const { token } = await this.authService.signIn(correoElectronico, contrasenia);
+      const { email, password } = req.body;
+      const { token } = await this.authService.signIn(email, password);
       res.status(200);
-      res.send({ message: "Inicio de sesión exitoso!", data: token });
+      res.send({ message: "Login successful!", data: token });
     } catch (error) {
       console.error(error);
       res.status(400);
-      res.send({ message: "Error al iniciar sesión" });
+      res.send({ message: "Login error" });
     }
   };
 }

@@ -2,8 +2,8 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import expressValidator from "express-validator"
 import databaseConnection from "../../config/database.js";
-import UserRepository from "../../module/usuario/repository/usuarioRepository.js";
-import UserService from "../../module/usuario/service/usuarioService.js";
+import UserRepository from "../../module/user/repository/userRepository.js";
+import UserService from "../../module/user/service/userService.js";
 import AuthController from "./controller/authController.js";
 import AuthService from "./service/authService.js";
 

@@ -2,8 +2,8 @@ import databaseConnection from "../../config/database.js";
 import authMiddleware from "../../middleware/auth.js";
 import EmailService from "../email/emailService.js";
 import InformeService from "../informe/informeService.js";
-import UsuarioRepository from "../usuario/repository/usuarioRepository.js";
-import UsuarioService from "../usuario/service/usuarioService.js";
+import UsuarioRepository from "../user/repository/userRepository.js";
+import UsuarioService from "../user/service/userService.js";
 import ReclamoController from "./controller/reclamoController.js";
 import ReclamoRepository from "./repository/reclamoRepository.js";
 import ReclamoService from "./service/reclamoService.js";
@@ -24,13 +24,13 @@ export default function reclamoModule(app) {
   const fileSystemService = fs;
   const pathService = path;
 
-  const usuarioRepository = new UsuarioRepository(databaseConnection);
-  const usuarioService = new UsuarioService(usuarioRepository);
+  const userRepository = new UsuarioRepository(databaseConnection);
+  const userService = new UsuarioService(userRepository);
   const emailService = new EmailService(nodeMailer, pathService, templateService);
   const informeService = new InformeService(browserService, htmlCompilerService, pathService, fileSystemService);
 
   const reclamoRepository = new ReclamoRepository(databaseConnection);
-  const reclamoService = new ReclamoService(reclamoRepository, usuarioService, emailService);
+  const reclamoService = new ReclamoService(reclamoRepository, userService, emailService);
   const reclamoController = new ReclamoController(reclamoService, authRequest, validationService, informeService);
 
   reclamoController.configRoutes(app);

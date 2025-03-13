@@ -1,7 +1,7 @@
 export default class ReclamoService {
-  constructor(reclamoRepository, usuarioService, emailService) {
+  constructor(reclamoRepository, userService, emailService) {
     this.reclamoRepository = reclamoRepository;
-    this.usuarioService = usuarioService;
+    this.userService = userService;
     this.emailService = emailService;
   }
 
@@ -32,7 +32,7 @@ export default class ReclamoService {
       const reclamo = await this.getOneById(id);
 
       const idUsuarioCreador = reclamo.idUsuarioCreador;
-      const usuarioCreador = await this.usuarioService.getOneById(idUsuarioCreador);
+      const usuarioCreador = await this.userService.getOneById(idUsuarioCreador);
       const emailTo = usuarioCreador.correoElectronico;
 
       await this.emailService.send({
