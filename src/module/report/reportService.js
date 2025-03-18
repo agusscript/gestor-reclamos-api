@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
-export default class InformeService {
+export default class ReportService {
   constructor(browserService, htmlCompilerService, pathService, fileSystemService) {
     this.browserService = browserService;
     this.htmlCompilerService = htmlCompilerService;
@@ -14,7 +14,7 @@ export default class InformeService {
       const __filename = fileURLToPath(import.meta.url);
       const __dirname = dirname(__filename);
 
-      const filePath = await this.pathService.join(__dirname, './template/informe.html');
+      const filePath = await this.pathService.join(__dirname, './template/report.html');
       const htmlTemplate = await this.fileSystemService.promises.readFile(filePath, 'utf-8');
 
       const compiledTemplate = this.htmlCompilerService.compile(htmlTemplate);
@@ -35,7 +35,7 @@ export default class InformeService {
 
       return pdfBuffer;
     } catch (error) {
-      console.log("Error al generar el PDF: ", error);
+      console.log("Error generating PDF: ", error);
     }
   }
 }
