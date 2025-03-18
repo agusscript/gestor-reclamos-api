@@ -35,9 +35,9 @@ export default class EmailService {
 
     try {
       const info = await transporter.sendMail(mailOptions);
-      console.log('Correo electrónico enviado:', info.response);
+      console.info('Email sent successfully:', info.response);
     } catch (error) {
-      console.error('Error al enviar el correo electrónico:', error);
+      console.error('Error sending email:', error);
     }
   }
 }
