@@ -6,18 +6,18 @@ function authMiddleware(requiredRoles) {
     const token = req.headers["authorization"]?.split(" ")[1];
 
     if (!token) {
-      return res.status(401).json({ message: "Acceso denegado. Debe iniciar sesión." });
+      return res.status(401).json({ message: "Access denied. You must log in." });
     }
 
     verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
-        return res.status(403).json({ message: "Token no válido." });
+        return res.status(403).json({ message: "Invalid token." });
       }
 
-      const userRole = decoded.usuarioRol;
+      const userRole = decoded.role;
 
       if (!requiredRoles.includes(userRole)) {
-        return res.status(403).json({ message: "No tienes permiso para acceder a esta ruta." });
+        return res.status(403).json({ message: "You do not have permission to access this route." });
       }
 
       req.user = decoded;

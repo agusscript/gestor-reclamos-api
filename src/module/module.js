@@ -1,15 +1,15 @@
-import oficinaModule from "./oficina/oficinaModule.js";
-import reclamoModule from "./reclamo/reclamoModule.js";
-import reclamoEstadoModule from "./reclamoEstado/reclamoEstadoModule.js";
-import reclamoTipoModule from "./reclamoTipo/reclamoTipoModule.js";
-import usuarioModule from "./usuario/usuarioModule.js";
+import officeModule from "./office/officeModule.js";
+import complaintModule from "./complaint/complaintModule.js";
+import complaintStatusModule from "./complaintStatus/complaintStatusModule.js";
+import complaintTypeModule from "./complaintType/complaintTypeModule.js";
+import userModule from "./user/userModule.js";
 import authModule from "./auth/authModule.js";
 
 export default function initModules(app) {
-  usuarioModule(app);
-  oficinaModule(app);
-  reclamoModule(app);
-  reclamoEstadoModule(app);
-  reclamoTipoModule(app);
+  userModule(app);
+  officeModule(app);
+  complaintModule(app);
+  complaintStatusModule(app);
+  complaintTypeModule(app);
   authModule(app);
 }

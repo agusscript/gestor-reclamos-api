@@ -97,7 +97,7 @@ CREATE TABLE `complaint_type` (
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `name` varchar(256) NOT NULL,
-  `lastname` varchar(256) NOT NULL,
+  `lastName` varchar(256) NOT NULL,
   `email` varchar(256) NOT NULL,
   `password` varchar(256) NOT NULL,
   `idUserType` int(11) NOT NULL,

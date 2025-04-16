@@ -37,14 +37,14 @@ INSERT INTO `office` (`id`, `name`, `idComplaintType`, `active`) VALUES
 --
 
 INSERT INTO `complaint` (`id`, `subject`, `description`, `createdDate`, `finishedDate`, `canceledDate`, `idComplaintStatus`, `idComplaintType`, `idCreatorUser`, `idFinisherUser`) VALUES
-(5, 'ruido en motor', NULL, '2024-08-19 06:00:00', NULL, NULL, 1, 1, 9, NULL),
-(6, 'rotura de motor', NULL, '2024-08-19 07:00:00', NULL, NULL, 4, 1, 8, NULL),
-(7, 'no frena', NULL, '2024-08-15 07:15:00', NULL, NULL, 1, 2, 8, NULL),
-(8, 'ruidos extraños', NULL, '2024-08-15 08:00:00', NULL, NULL, 1, 3, 7, NULL),
-(9, 'cristales rayados', NULL, '2024-08-15 09:30:00', NULL, NULL, 1, 4, 7, NULL),
-(10, 'matafuego vencido', NULL, '2024-08-15 09:00:00', NULL, NULL, 2, 4, 7, NULL),
-(11, 'suspensión lado izq fallada', NULL, '2024-08-15 15:00:00', NULL, NULL, 2, 3, 8, NULL),
-(15, 'falla tren delantero', 'empece a notar ruidos molestos', '2024-08-28 19:26:12', NULL, NULL, 1, 1, 9, NULL);
+(1, 'Ruido en motor', NULL, '2024-08-19 06:00:00', NULL, NULL, 1, 1, 9, NULL),
+(2, 'Rotura de motor', NULL, '2024-08-19 07:00:00', NULL, NULL, 4, 1, 8, NULL),
+(3, 'No frena', NULL, '2024-08-15 07:15:00', NULL, NULL, 1, 2, 8, NULL),
+(4, 'Ruidos extraños', NULL, '2024-08-15 08:00:00', NULL, NULL, 1, 3, 7, NULL),
+(5, 'Cristales rayados', NULL, '2024-08-15 09:30:00', NULL, NULL, 1, 4, 7, NULL),
+(6, 'Matafuego vencido', NULL, '2024-08-15 09:00:00', NULL, NULL, 2, 4, 7, NULL),
+(7, 'Suspensión lado izq fallada', NULL, '2024-08-15 15:00:00', NULL, NULL, 2, 3, 8, NULL),
+(8, 'Falla tren delantero', 'empece a notar ruidos molestos', '2024-08-28 19:26:12', NULL, NULL, 1, 1, 9, NULL);
 
 -- --------------------------------------------------------
 
@@ -116,9 +116,9 @@ INSERT INTO `user_office` (`id`, `idUser`, `idOffice`, `active`) VALUES
 --
 
 INSERT INTO `user_type` (`id`, `description`, `active`) VALUES
-(1, 'Administrador', 1),
-(2, 'Empleado', 1),
-(3, 'Cliente', 1);
+(1, 'Admin', 1),
+(2, 'Employee', 1),
+(3, 'Client', 1);
 
 COMMIT;
 
