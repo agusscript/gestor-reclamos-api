@@ -6,7 +6,6 @@ Trabajo Práctico integrador final - Grupo 19
 
 - Lara Alegre
 - Lucas Ruiz
-- Giovanni Percara
 - Annoni Julian
 - Sanchez Agustin
 
@@ -66,12 +65,6 @@ EMAIL_FROM=
 
 ```bash
   npm run start
-```
-
-- Finalmente, para probar que todo salió bien, te dejo el siguiente endpoint de ejemplo para que puedas hacer una solicitud de tipo `GET` y ver una lista de usuarios
-
-```bash
-  http://localhost:3000/usuario
 ```
 
 - Para detener y cerrar el contenedor con la base de datos debemos ejecutar el siguiente comando
